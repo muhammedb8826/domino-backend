@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::prefix('v1')->group(
         function () {
             Route::get('/logout', [AuthenticationController::class, 'logout']);
+            Route::get('/getUser', [AuthenticationController::class, 'getCurrentUser']);
             Route::post('users/{user}/roles', [UserController::class,'assignRole']);
             Route::apiResource('users', UserController::class);
             Route::get('roles/generate-permissions', [RoleController::class, 'generatePermissions']);

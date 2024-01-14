@@ -22,12 +22,16 @@ class AuthenticationController extends Controller
             $user = auth()->user();
             $token = $user->createToken('token-name')->plainTextToken;
 
-            return response()->json(['token' => $token]);
+            return response()->json(['user'=> $user, 'token' => $token]);
         }
 
         return response()->json([
             'message' => 'Invalid credentials'
         ], 401);
+    }
+    public function getCurrentUser()
+    {
+        return response()->json(Auth::user());
     }
     public function logout()
     {
