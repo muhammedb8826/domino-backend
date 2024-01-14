@@ -10,25 +10,6 @@ use Illuminate\Support\Facades\Hash;
 class AuthenticationController extends Controller
 {
 
-
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|unique:users|max:255',
-            'password' => 'required|min:6'
-        ]);
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
-
-        return response([
-            'message' => 'User created successfully',
-            'user' => $user
-        ]);
-    }
     public function login(Request $request)
     {
         $request->validate([
@@ -38,7 +19,7 @@ class AuthenticationController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+            $user = auth()->user();
             $token = $user->createToken('token-name')->plainTextToken;
 
             return response()->json(['token' => $token]);
@@ -50,6 +31,7 @@ class AuthenticationController extends Controller
     }
     public function logout()
     {
+
         Auth::user()->tokens()->delete();
         return response([
             'message' => 'Successfully logged out'

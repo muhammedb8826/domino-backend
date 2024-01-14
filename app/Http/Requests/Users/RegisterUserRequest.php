@@ -26,6 +26,7 @@ class RegisterUserRequest extends FormRequest
             'first_name' => ['required'],
             'middle_name' => ['required'],
             'last_name' => ['required'],
+            'gender' => ['nullable', 'in:male,female'],
             'phone' => ['required', 'unique:users,phone'],
             'email' => ['email:rfc,dns,unique:users,email'],
             'password' => ['required', 'confirmed'],

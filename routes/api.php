@@ -22,14 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::prefix('v1')->group(
     function () {
-        Route::post('/login', [AuthenticationController::class, 'login']);
-        Route::post('/logout', [AuthenticationController::class, 'logout']);
+        Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
     }
 );
 
-Route::group(['auth:sanctum'],function (){
+Route::middleware('auth:sanctum')->group(function (){
     Route::prefix('v1')->group(
         function () {
+            Route::get('/logout', [AuthenticationController::class, 'logout']);
             Route::post('users/{user}/roles', [UserController::class,'assignRole']);
             Route::apiResource('users', UserController::class);
             Route::get('roles/generate-permissions', [RoleController::class, 'generatePermissions']);

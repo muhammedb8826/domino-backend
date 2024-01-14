@@ -4,6 +4,7 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -26,14 +27,11 @@ class UpdateUserRequest extends FormRequest
             'first_name' => ['required'],
             'middle_name' => ['required'],
             'last_name' => ['required'],
-            'phone' => ['required', 'unique:users,phone'],
-            'email' => ['email:rfc,dns,unique:users,email'],
+            'gender' => ['nullable', 'in:male,female'],
+            'phone' => ['required',Rule::unique('users')->ignore($this->user->id)],
+            'email' => ['required','email:rfc,dns', Rule::unique('users')->ignore($this->user)],
             'joined_date' => ['required', 'date'],
         ];
     }
-    protected function passedValidation()
-    {
-        $this['password'] = Hash::make($this->password);
-        return $this;
-    }
+
 }

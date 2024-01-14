@@ -27,10 +27,8 @@ class UserController extends Controller
         return UserResource::collection($query->paginate($request->get('per_page', Constant::PER_PAGE)));
     }
 
-    /**
-     * Register New Users.
-     */
-    public function register(RegisterUserRequest $registerUserRequest)
+
+    public function store(RegisterUserRequest $registerUserRequest)
     {
 
         $user = User::create($registerUserRequest->all());
@@ -41,14 +39,12 @@ class UserController extends Controller
 
     public function assignRole(Request $request, User $user)
     {
-        $userGuardRoles = Role::whereGuard('user-api')->whereIn('name', $request->input('roles'))->get();
+        $userGuardRoles = Role::whereIn('name', $request->input('roles'))->get();
 
         $user->syncRoles($userGuardRoles);
         return response()->json(['message' => 'Roles assigned successfully']);
     }
-    /**
-     * Display the user basic profile.
-     */
+
     public function show(User $user)
     {
         return  UserResource::make($user);
@@ -59,5 +55,11 @@ class UserController extends Controller
         return UserResource::make($user)->additional([
             'message' => 'User updated Successfully',
         ]);
+    }
+    
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return response()->json(null, 204);
     }
 }
