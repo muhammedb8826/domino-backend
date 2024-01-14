@@ -31,6 +31,7 @@ class UpdateUserRequest extends FormRequest
             'phone' => ['required',Rule::unique('users')->ignore($this->user->id)],
             'email' => ['required','email:rfc,dns', Rule::unique('users')->ignore($this->user)],
             'joined_date' => ['required', 'date'],
+            'photo'=>['nullable']
         ];
     }
 

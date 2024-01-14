@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Users\RoleController;
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Http\Request;
@@ -29,12 +30,17 @@ Route::prefix('v1')->group(
 Route::middleware('auth:sanctum')->group(function (){
     Route::prefix('v1')->group(
         function () {
-            Route::get('/logout', [AuthenticationController::class, 'logout']);
-            Route::get('/getUser', [AuthenticationController::class, 'getCurrentUser']);
+            Route::get('logout', [AuthenticationController::class, 'logout']);
+            Route::get('getUser', [AuthenticationController::class, 'getCurrentUser']);
             Route::post('users/{user}/roles', [UserController::class,'assignRole']);
             Route::apiResource('users', UserController::class);
             Route::get('roles/generate-permissions', [RoleController::class, 'generatePermissions']);
             Route::apiResource('roles', RoleController::class);
+
+            Route::post('upload-file', [UploadController::class, 'uploadFile']);
+            Route::get('get-file', [UploadController::class, 'get']);
+            Route::get('get-file-url', [UploadController::class, 'getUrl']);
+
         });
 
 });

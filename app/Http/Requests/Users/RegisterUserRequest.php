@@ -32,6 +32,7 @@ class RegisterUserRequest extends FormRequest
             'password' => ['required', 'confirmed'],
             'password_confirmation' => ['required'],
             'joined_date' => ['required', 'date'],
+            'photo'=>['nullable']
         ];
     }
     protected function passedValidation()
