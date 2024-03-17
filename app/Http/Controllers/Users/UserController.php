@@ -56,7 +56,7 @@ class UserController extends Controller
             'message' => 'User updated Successfully',
         ]);
     }
-    
+
     public function destroy(User $user)
     {
         $user->delete();

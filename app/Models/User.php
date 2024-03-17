@@ -28,6 +28,9 @@ class User extends Authenticatable
         'joined_date',
         'photo',
         'address',
+        'roles',
+        'is_active',
+        'machine_permissions',
     ];
 
     /**

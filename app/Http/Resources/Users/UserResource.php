@@ -24,7 +24,12 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'address' => $this->address,
             'joined_date' => $this->joined_date,
-            'is_active' => $this->is_active
+            'is_active' => $this->is_active,
+            'roles' => $this->roles->pluck('name'),
+            'machine_permissions' => json_decode($this->machine_permissions),
+            'photo' => $this->photo,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

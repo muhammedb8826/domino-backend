@@ -40,7 +40,6 @@ Route::middleware('auth:sanctum')->group(function (){
             Route::post('upload-file', [UploadController::class, 'uploadFile']);
             Route::get('get-file', [UploadController::class, 'get']);
             Route::get('get-file-url', [UploadController::class, 'getUrl']);
-
         });
 
 });
