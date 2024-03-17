@@ -25,7 +25,7 @@ class UserResource extends JsonResource
             'address' => $this->address,
             'joined_date' => $this->joined_date,
             'is_active' => $this->is_active,
-            'roles' => $this->roles->pluck('name'),
+            'roles' => $this->roles,
             'machine_permissions' => json_decode($this->machine_permissions),
             'photo' => $this->photo,
             'created_at' => $this->created_at,
